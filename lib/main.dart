@@ -77,6 +77,7 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
           ],
         ),
       ),
+      
     );
   }
 }
@@ -183,7 +184,6 @@ class _LanguageAndRoleSelectionScreenState extends State<LanguageAndRoleSelectio
     );
   }
 }
-
 /// 3. Unified Login Screen
 class LoginScreen extends StatefulWidget {
   final String role;
@@ -334,6 +334,7 @@ class LegalAgreementDialog extends StatelessWidget {
     );
   }
 }
+
 
 /// 5. Customer & Contractor Dashboard
 class UserDashboard extends StatelessWidget {
@@ -524,4 +525,41 @@ class _OwnerAdminDashboardState extends State<OwnerAdminDashboard> {
                     Text('Bank Name: ${bankNameController.text}', style: const TextStyle(color: Colors.white70)),
                     Text('Account No: ${accountNoController.text}', style: const TextStyle(color: Colors.white70)),
                     Text('IFSC Code: ${ifscController.text}', style: const TextStyle(color: Colors.white70)),
-                    const Text('Platform Royalty Comm
+                    const Text('Platform Royalty Commission: 15% Auto-Split Active', style: TextStyle(color: Colors.greenAccent, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text('Edit Director Master Configuration:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
+            TextField(controller: directorNameController, decoration: const InputDecoration(labelText: 'Director Full Name', border: OutlineInputBorder())),
+            const SizedBox(height: 10),
+            TextField(controller: phoneController, decoration: const InputDecoration(labelText: 'Contact Phone', border: OutlineInputBorder())),
+            const SizedBox(height: 10),
+            TextField(controller: emailController, decoration: const InputDecoration(labelText: 'Director Email ID', border: OutlineInputBorder())),
+            const SizedBox(height: 10),
+            TextField(controller: pinCodeController, decoration: const InputDecoration(labelText: 'Master Admin PIN', border: OutlineInputBorder())),
+            const SizedBox(height: 10),
+            TextField(controller: accountNoController, decoration: const InputDecoration(labelText: 'PNB Auto-Split Account Number', border: OutlineInputBorder())),
+            const SizedBox(height: 10),
+            TextField(controller: ifscController, decoration: const InputDecoration(labelText: 'PNB IFSC Code', border: OutlineInputBorder())),
+            const SizedBox(height: 10),
+            TextField(controller: razorpayKeyController, decoration: const InputDecoration(labelText: 'Razorpay / Cashfree Route API Key', border: OutlineInputBorder())),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+                backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: _saveSettings,
+              child: const Text('SAVE MASTER CONFIGURATION', style: TextStyle(fontSize: 16)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
