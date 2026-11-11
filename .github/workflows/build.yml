@@ -26,6 +26,9 @@ jobs:
           flutter-version: '3.19.0'
           channel: 'stable'
 
+      - name: Initialize Android Structure
+        run: flutter create . --org com.repair.fabricator --project-name repair_fabricator --platforms=android
+
       - name: Install Dependencies
         run: flutter pub get
 
