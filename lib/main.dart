@@ -377,5 +377,200 @@ class _PostJobPriceSelectorTabState extends State<PostJobPriceSelectorTab> {
       ),
     );
   }
+}/// Tab 3: Live Tracking (Crucial UI)
+class LiveTrackingTab extends StatelessWidget {
+  const LiveTrackingTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Live Tracking'), backgroundColor: const Color(0xFFFF5722), foregroundColor: Colors.white),
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            color: const Color(0xFF1A1A2E),
+            width: double.infinity,
+            child: const Text(
+              'Welder Rahul is arriving in 8 mins (1.9 km)',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.orange.shade50,
+              child: const Center(child: Icon(Icons.map, size: 90, color: Color(0xFFFF5722))),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: Colors.white,
+            child: Column(
+              children: [
+                const Text('Secure In-App Chat Active', style: TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFFF5722), foregroundColor: Colors.white, minimumSize: const Size.fromHeight(45)),
+                  icon: const Icon(Icons.phone_in_talk),
+                  label: const Text('CALL (Call Masking Active)'),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }
+
+/// Tab 4: Support & Dispute (Resolves 'SupportAndDisputeTab' issue)
+class SupportAndDisputeTab extends StatelessWidget {
+  const SupportAndDisputeTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Support & PNB Details'), backgroundColor: const Color(0xFFFF5722), foregroundColor: Colors.white),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          const Text('Raise a Complaint', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          const SizedBox(height: 10),
+          _buildBtn('Report Welder', Icons.report),
+          _buildBtn('Report Customer', Icons.person_off),
+          _buildBtn('Job Quality Issue', Icons.warning),
+          _buildBtn('Payment Discrepancy', Icons.payment),
+          const SizedBox(height: 20),
+          const Text('Past PNB Splits (15% platform fee)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          const SizedBox(height: 10),
+          Card(
+            child: ListTile(
+              title: const Text('Rahul Welder - ₹50.00'),
+              subtitle: const Text('To Saifuddin Sekh\'s PNB A/C: 0701200100018129 (IFSC: PUNB0070120)'),
+              trailing: const Icon(Icons.check_circle, color: Colors.green),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBtn(String title, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF1A1A2E),
+          foregroundColor: Colors.white,
+          minimumSize: const Size.fromHeight(45),
+          alignment: Alignment.centerLeft,
+        ),
+        icon: Icon(icon, color: const Color(0xFFFF5722)),
+        label: Text(title),
+        onPressed: () {},
+      ),
+    );
+  }
+}
+
+/// 5. Super Admin Dashboard (Resolves UI name issue & isAccountMasked toggle)
+class SuperAdminDashboard extends StatefulWidget {
+  const SuperAdminDashboard({super.key});
+
+  @override
+  State<SuperAdminDashboard> createState() => _SuperAdminDashboardState();
+}
+
+class _SuperAdminDashboardState extends State<SuperAdminDashboard> {
+  final TextEditingController directorNameCtrl = TextEditingController(text: 'Saifuddin Sekh');
+  final TextEditingController phoneCtrl = TextEditingController(text: '8882384367');
+  final TextEditingController accountNoCtrl = TextEditingController(text: '0701200100018129');
+  final TextEditingController ifscCtrl = TextEditingController(text: 'PUNB0070120');
+
+  bool isAccountMasked = true;
+
+  @override
+  Widget build(BuildContext context) {
+    String displayAccount = isAccountMasked
+        ? 'X' * (accountNoCtrl.text.length > 4 ? accountNoCtrl.text.length - 4 : 0) +
+            (accountNoCtrl.text.length >= 4 ? accountNoCtrl.text.substring(accountNoCtrl.text.length - 4) : accountNoCtrl.text)
+        : accountNoCtrl.text;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Super Admin Master Panel'),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Card(
+              color: Colors.blueGrey.shade900,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.between,
+                      children: [
+                        const Text(
+                          'DIRECTOR BENEFICIARY INFO',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.orangeAccent),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            isAccountMasked ? Icons.visibility_off : Icons.visibility,
+                            color: Colors.white,
+                          ),
+                          onPressed: () => setState(() => isAccountMasked = !isAccountMasked),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Text('Director: ${directorNameCtrl.text}', style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
+                    Text('Phone: ${phoneCtrl.text}', style: const TextStyle(color: Colors.white70)),
+                    Text('PNB A/C: $displayAccount', style: const TextStyle(color: Colors.greenAccent, fontWeight: FontWeight.bold, fontSize: 15)),
+                    Text('IFSC: ${ifscCtrl.text}', style: const TextStyle(color: Colors.white70)),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text('Update Master Configuration:', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
+            TextField(controller: directorNameCtrl, decoration: const InputDecoration(labelText: 'Director Full Name', border: OutlineInputBorder())),
+            const SizedBox(height: 10),
+            TextField(controller: phoneCtrl, decoration: const InputDecoration(labelText: 'Contact Phone', border: OutlineInputBorder())),
+            const SizedBox(height: 10),
+            TextField(controller: accountNoCtrl, decoration: const InputDecoration(labelText: 'PNB Account Number', border: OutlineInputBorder())),
+            const SizedBox(height: 10),
+            TextField(controller: ifscCtrl, decoration: const InputDecoration(labelText: 'IFSC Code', border: OutlineInputBorder())),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+                backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Configuration updated and saved locally!')),
+                );
+              },
+              child: const Text('SAVE MASTER CONFIGURATION', style: TextStyle(fontSize: 15)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
 
