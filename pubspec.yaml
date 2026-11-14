@@ -26,19 +26,17 @@ jobs:
         channel: 'stable'
         cache: true
 
-    - name: Install Dependencies & Pub Get
-      run: |
-        flutter pub get
+    - name: Install Dependencies
+      run: flutter pub get
 
-    - name: Generate App Icon & Name
+    - name: Set App Name in Manifest
       run: |
-        dart run flutter_launcher_icons
         sed -i 's/android:label="[^"]*"/android:label="লিবিয়ার ফেব্রিকেটর"/g' android/app/src/main/AndroidManifest.xml || true
 
-    - name: Build APK
+    - name: Build Release APK
       run: flutter build apk --release
 
-    - name: Upload APK
+    - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-release
