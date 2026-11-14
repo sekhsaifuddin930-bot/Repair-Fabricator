@@ -26,12 +26,13 @@ jobs:
         channel: 'stable'
         cache: true
 
-    - name: Install Dependencies
-      run: flutter pub get
-
-    - name: Create Proper Flutter Android Project
+    - name: Create Complete Android Project Structure
       run: |
         flutter create . --org com.repair.fabricator --project-name repair_fabricator --platforms=android --overwrite
+
+    - name: Restore Pubspec & Run Pub Get
+      run: |
+        flutter pub get
 
     - name: Generate App Icon & Name
       run: |
