@@ -29,17 +29,14 @@ jobs:
     - name: Install Dependencies
       run: flutter pub get
 
-    - name: Setup Complete Android Structure
+    - name: Create Proper Flutter Android Project
       run: |
-        mkdir -p android/app/src/main
-        MANIFEST_CONTENT='<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.repair.fabricator"><application android:label="Repair Fabricator" android:name="${applicationName}" android:icon="@mipmap/ic_launcher"><activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity><meta-data android:name="flutterEmbedding" android:value="2"/></application></manifest>'
-        echo "$MANIFEST_CONTENT" > android/app/src/main/AndroidManifest.xml
-        mkdir -p android/app/src/main/res/values
-        echo '<resources><string name="app_name">Repair Fabricator</string></resources>' > android/app/src/main/res/values/strings.xml
-        echo "$MANIFEST_CONTENT" > android/AndroidManifest.xml
+        flutter create . --org com.repair.fabricator --project-name repair_fabricator --platforms=android --overwrite
 
-    - name: Generate App Icon
-      run: dart run flutter_launcher_icons
+    - name: Generate App Icon & Name
+      run: |
+        dart run flutter_launcher_icons
+        sed -i 's/android:label="[^"]*"/android:label="Repair Fabricator"/g' android/app/src/main/AndroidManifest.xml
 
     - name: Build APK
       run: flutter build apk --release
