@@ -30,6 +30,17 @@ jobs:
       run: |
         flutter create . --org com.repair.fabricator --project-name repair_fabricator --platforms=android --overwrite
 
+    - name: Add Launcher Icons Config to Pubspec
+      run: |
+        echo "" >> pubspec.yaml
+        echo "dev_dependencies:" >> pubspec.yaml
+        echo "  flutter_launcher_icons: ^0.13.1" >> pubspec.yaml
+        echo "" >> pubspec.yaml
+        echo "flutter_launcher_icons:" >> pubspec.yaml
+        echo "  android: true" >> pubspec.yaml
+        echo "  ios: false" >> pubspec.yaml
+        echo "  image_path: \"logo.png\"" >> pubspec.yaml
+
     - name: Install Dependencies & Pub Get
       run: |
         flutter pub get
@@ -47,4 +58,5 @@ jobs:
       with:
         name: app-release
         path: build/app/outputs/flutter-apk/app-release.apk
+
         
