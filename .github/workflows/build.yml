@@ -29,10 +29,13 @@ jobs:
     - name: Install Dependencies
       run: flutter pub get
 
+    - name: Create Android Platform Files
+      run: flutter create . --platforms=android
+
     - name: Generate App Icon & Name
       run: |
         dart run flutter_launcher_icons
-        sed -i 's/android:label="[^"]*"/android:label="Repair Fabricator"/g' android/app/src/main/AndroidManifest.xml || true
+        sed -i 's/android:label="[^"]*"/android:label="Repair Fabricator"/g' android/app/src/main/AndroidManifest.xml
 
     - name: Build APK
       run: flutter build apk --release
@@ -42,4 +45,3 @@ jobs:
       with:
         name: app-release
         path: build/app/outputs/flutter-apk/app-release.apk
-        
