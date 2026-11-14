@@ -30,7 +30,7 @@ jobs:
       run: flutter pub get
 
     - name: Generate Android Folder
-      run: flutter create . --platforms=android --org com.repair.fabricator
+      run: flutter create . --platforms=android
 
     - name: Generate App Icon & Name
       run: |
