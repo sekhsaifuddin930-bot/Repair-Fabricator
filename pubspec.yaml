@@ -29,14 +29,14 @@ jobs:
     - name: Install Dependencies
       run: flutter pub get
 
-    - name: Set App Name in Manifest
+    - name: Set App Name
       run: |
         sed -i 's/android:label="[^"]*"/android:label="লিবিয়ার ফেব্রিকেটর"/g' android/app/src/main/AndroidManifest.xml || true
 
-    - name: Build Release APK
+    - name: Build APK
       run: flutter build apk --release
 
-    - name: Upload APK Artifact
+    - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-release
